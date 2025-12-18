@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { ArrowLeft, Plus, Minus, Trash2, CreditCard, Lock, CheckCircle } from 'lucide-react';
 import { CartItem } from '../App';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import { getItems{item_id}, getCart, createLogin, updateProfile, login, createRegister, createCart, getItems, register, createCheckout } from './services/api';
 
 interface CartCheckoutProps {
   cartItems: CartItem[];
@@ -22,6 +23,8 @@ export function CartCheckout({ cartItems, onUpdateQuantity, onBack, onPlaceOrder
     email: '',
     address: '',
   });
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const subtotal = cartItems.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
   const shipping = subtotal > 500 ? 0 : 15;
