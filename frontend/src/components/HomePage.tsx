@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Search, ShoppingCart, User, Heart, Filter, Star } from 'lucide-react';
 import { Product } from '../App';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import { getItems{item_id}, getCart, createLogin, updateProfile, login, createRegister, createCart, getItems, register, createCheckout } from './services/api';
 
 const MOCK_PRODUCTS: Product[] = [
   {
@@ -72,7 +73,7 @@ const MOCK_PRODUCTS: Product[] = [
   },
 ];
 
-const CATEGORIES = ['All', 'Audio', 'Wearables', 'Computers', 'Photography', 'Phones'];
+const [CATEGORIES, setCategories] = useState([]);
 
 interface HomePageProps {
   onProductClick: (product: Product) => void;
@@ -84,6 +85,24 @@ interface HomePageProps {
 export function HomePage({ onProductClick, onNavigateToCart, onNavigateToAccount, cartItemCount }: HomePageProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const result = await getItems();
+        setData(result);
+        setError(null);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchData();
+  }, []);
+
   const [priceFilter, setPriceFilter] = useState<'all' | 'low' | 'mid' | 'high'>('all');
 
   const filteredProducts = MOCK_PRODUCTS.filter(product => {
