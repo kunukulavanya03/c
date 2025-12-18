@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { ArrowLeft, ShoppingCart, Heart, Star, Plus, Minus, Package, Shield, Truck } from 'lucide-react';
 import { Product } from '../App';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import { getItems{item_id}, getCart, createLogin, updateProfile, login, createRegister, createCart, getItems, register, createCheckout } from './services/api';
 
 interface ProductDetailsProps {
   product: Product;
@@ -13,29 +14,7 @@ interface ProductDetailsProps {
   cartItemCount: number;
 }
 
-const MOCK_REVIEWS = [
-  {
-    id: '1',
-    author: 'John D.',
-    rating: 5,
-    date: '2025-12-05',
-    comment: 'Excellent product! Exceeded my expectations in every way.',
-  },
-  {
-    id: '2',
-    author: 'Sarah M.',
-    rating: 4,
-    date: '2025-12-01',
-    comment: 'Great quality and fast shipping. Very satisfied with my purchase.',
-  },
-  {
-    id: '3',
-    author: 'Mike R.',
-    rating: 5,
-    date: '2025-11-28',
-    comment: 'Best purchase I\'ve made this year. Highly recommended!',
-  },
-];
+const [MOCK_REVIEWS, setMock_reviews] = useState([]);
 
 export function ProductDetails({
   product,
@@ -48,6 +27,24 @@ export function ProductDetails({
 }: ProductDetailsProps) {
   const [quantity, setQuantity] = useState(1);
   const [addedToCart, setAddedToCart] = useState(false);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const result = await getItems();
+        setData(result);
+        setError(null);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchData();
+  }, []);
+
 
   const handleAddToCart = () => {
     onAddToCart(product, quantity);
