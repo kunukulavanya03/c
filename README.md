@@ -43,22 +43,24 @@ cd backend
 
 ## Features
 
-- User authentication and authorization
-- Data CRUD operations
-- Search and filtering
-- Notifications and alerts
+- user registration
+- user login
+- user profile management
+- item browsing
+- cart management
+- checkout
 
 ## API Endpoints
 
-- `POST /api/register` - Create a new user account.
-- `POST /api/login` - Log in to an existing user account.
-- `GET /api/profile` - Retrieve the current user's profile information.
-- `PUT /api/profile` - Update the current user's profile information.
-- `GET /api/data` - Retrieve a list of data.
-- `POST /api/data` - Create a new data item.
-- `GET /api/data/{id}` - Retrieve a single data item by ID.
-- `PUT /api/data/{id}` - Update a single data item by ID.
-- `DELETE /api/data/{id}` - Delete a single data item by ID.
+- `POST /api/register` - Create a new user account
+- `POST /api/login` - Log in to an existing user account
+- `GET /api/profile` - Retrieve the current user's profile information
+- `PUT /api/profile` - Update the current user's profile information
+- `GET /api/items` - Retrieve a list of available items
+- `GET /api/items/{item_id}` - Retrieve details of a specific item
+- `POST /api/cart` - Add an item to the current user's cart
+- `GET /api/cart` - Retrieve the current user's cart
+- `POST /api/checkout` - Complete a purchase and clear the cart
 
 ## License
 
