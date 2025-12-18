@@ -1,4 +1,5 @@
 import * as React from "react";
+import { getItems{item_id}, getCart, createLogin, updateProfile, login, createRegister, createCart, getItems, register, createCheckout } from './services/api';
 
 const MOBILE_BREAKPOINT = 768;
 
